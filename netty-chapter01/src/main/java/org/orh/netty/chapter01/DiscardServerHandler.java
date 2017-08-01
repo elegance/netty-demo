@@ -3,6 +3,7 @@ package org.orh.netty.chapter01;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 
 /**
  * 处理服务端 Channel
@@ -13,8 +14,19 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception { // (2)
         // 默默丢弃收到的数据 - 是不是类似 iptables 的 drop 呢
-        System.out.println(msg);
-        ((ByteBuf) msg).release(); // (3)
+        ByteBuf in = (ByteBuf) msg;
+        try {
+            while (in.isReadable()) {
+                System.out.print((char) in.readByte());
+                System.out.flush();
+            }
+            // 上面的低效循环 可以简化为以下
+            // System.out.print(in.toString(io.netty.util.CharsetUtil.US_ASCII));
+        } finally {
+            ReferenceCountUtil.release(msg);
+        }
+        // System.out.println(msg);
+        // ((ByteBuf) msg).release(); // (3)
     }
 
     @Override
@@ -37,6 +49,6 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)
     // (4). exceptionCaught 是在出现 Throwable
     // 对象才被调用，即当Netty由于IO错误或处理器在处理事件抛出异常时。在大部分情况下，捕获的异常应该被记录下来并且把关联的 channel 给关闭掉。
     // 这个方法在遇到不同的异常情况下有不同的实现，比如你可能想在关闭连接前发送一个错误码的响应消息
-    
-    // 现在 DISCARD 服务已经实现了一半了，剩下编个 main 方法来启动 DiscardServerHandler 
+
+    // 现在 DISCARD 服务已经实现了一半了，剩下编个 main 方法来启动 DiscardServerHandler
 }
