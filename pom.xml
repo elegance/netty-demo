@@ -19,6 +19,7 @@
 	</dependencies>
 	<modules>
 		<module>netty-chapter01</module>
+		<module>netty-chapter02</module>
 	</modules>
 	<build>
 		<plugins>
