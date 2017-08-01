@@ -20,6 +20,7 @@
 	<modules>
 		<module>netty-chapter01</module>
 		<module>netty-chapter02</module>
+		<module>netty-chapter03</module>
 	</modules>
 	<build>
 		<plugins>
