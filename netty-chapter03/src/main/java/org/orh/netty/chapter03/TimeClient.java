@@ -30,7 +30,7 @@ public class TimeClient {
 
                 @Override
                 protected void initChannel(Channel ch) throws Exception {
-                    ch.pipeline().addLast(new TimeClientHandler());
+                    ch.pipeline().addLast(new TimeDecoder(), new TimeClientHandler());
                 }});
             
             // Start the client
