@@ -22,6 +22,7 @@
 		<module>netty-chapter02</module>
 		<module>netty-chapter03</module>
 		<module>netty-chapter04</module>
+		<module>netty-chapter05</module>
 	</modules>
 	<build>
 		<plugins>

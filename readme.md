@@ -9,10 +9,11 @@
 ### [Writing a Time Server 写个时间服务](netty-chapter03)
 * 不接受任何请求时发送一个含32位的整数消息，发送完立即关闭
 
-
 ### [Speaking in POJO instead of ByteBuf 用POJO代替ByteBuf](netty-chapter04)
 * 之前的例子都是使用的ByteBuf，这里将使用POJO
 * server 端 TimeEncoder，client 端 TimeDecoder
+
+### [Factorial - 阶乘计算Server](netty-chapter05)
 
 
 ### 处理基于流的传输
@@ -22,4 +23,6 @@
 
 
 #### 主要参考
+* http://netty.io/wiki/user-guide-for-4.x.html
+* https://github.com/netty/netty/tree/4.0/example/src/main/java/io/netty/example
 * https://github.com/waylau/netty-4-user-guide
