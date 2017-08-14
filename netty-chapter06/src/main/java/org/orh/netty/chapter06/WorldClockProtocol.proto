@@ -1,0 +1,63 @@
+package org.orh.netty.chapter06;
+
+// How to generate
+// ===============
+// $ cd example
+// $ protoc src/main/java/org/orh/netty/chapter06/WorldClockProtocol.proto \
+//          --java_out=src/main/java
+//
+
+option optimize_for = SPEED;
+// option optimize_for = LITE_RUNTIME;
+//      optimize_for是文件级别的选项，Protocol Buffer定义三种优化级别SPEED/CODE_SIZE/LITE_RUNTIME。缺省情况下是SPEED。
+//      SPEED: 表示生成的代码运行效率高，但是由此生成的代码编译后会占用更多的空间。
+//      CODE_SIZE: 和SPEED恰恰相反，代码运行效率较低，但是由此生成的代码编译后会占用更少的空间，通常用于资源有限的平台，如Mobile。
+//      LITE_RUNTIME: 生成的代码执行效率高，同时生成代码编译后的所占用的空间也是非常少。这是以牺牲Protocol Buffer提供的反射功能为代价的。因此我们在C++中链接Protocol Buffer库时仅需链接libprotobuf-lite，而非libprotobuf。在Java中仅需包含protobuf-java-2.4.1-lite.jar，而非protobuf-java-2.4.1.jar。
+//      注：对于LITE_MESSAGE选项而言，其生成的代码均将继承自MessageLite，而非Message。 
+
+enum Continent {
+    AFRICA = 0;
+    AMERICA = 1;
+    ANTARCTICA = 2;
+    ARCTIC = 3;
+    ASIA = 4;
+    ATLANTIC = 5;
+    AUSTRALIA = 6;
+    EUROPE = 7;
+    INDIAN = 8;
+    MIDEAST = 9;
+    PACIFIC = 10;
+}
+
+message Location {
+    required Continent continent = 1;
+    required string city = 2;
+}
+
+message Locations {
+    repeated Location location = 1;
+}
+
+enum DayOfWeek {
+    SUNDAY = 1;
+    MONDAY = 2;
+    TUESDAY = 3;
+    WEDESDAY = 4;
+    THURSDAY = 5;
+    FRIDAY = 6;
+    SATURDAY = 7;
+}
+
+message LocalTime {
+    required uint32 year = 1;
+    required uint32 month = 2;
+    required uint32 dayOfMonth = 3;
+    required DayOfWeek dayOfWeek = 4;
+    required uint32 hour = 5;
+    required uint32 minute = 6;
+    required uint32 second = 7;
+}
+
+message LocalTimes {
+    repeated LocalTime localTime = 1;
+}
